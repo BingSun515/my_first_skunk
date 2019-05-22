@@ -17,7 +17,7 @@ public class SkunkDomain
 	public boolean wantsToQuit;
 	public boolean oneMoreRoll;
 
-	public Dice skunkDice;
+	public SkunkDice skunkDice;
 
 	public SkunkDomain(SkunkUI ui)
 	{
@@ -26,7 +26,7 @@ public class SkunkDomain
 
 		this.playerNames = new String[20];
 		this.players = new ArrayList<Player>();
-		this.skunkDice = new Dice();
+		this.skunkDice = new SkunkDice();
 		this.wantsToQuit = false;
 		this.oneMoreRoll = false;
 	}
