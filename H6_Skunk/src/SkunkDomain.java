@@ -35,8 +35,8 @@ public class SkunkDomain
 	{
 		ui.println("Welcome to Skunk 0.47\n");
 
-		String numberPlayersString = skunkUI.promptReadAndReturn("How many players?");
-		this.numberOfPlayers = Integer.parseInt(numberPlayersString);
+	//	String numberPlayersString = skunkUI.promptReadAndReturn("How many players?"); inserted into numberofPlayers
+		this.numberOfPlayers = Integer.parseInt(skunkUI.promptReadAndReturn("How many players?"));
 
 		for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
 		{
@@ -62,7 +62,7 @@ public class SkunkDomain
 				skunkDice.roll();
 				if (skunkDice.getLastRoll() == 2)
 				{
-					handleSkunk();
+					//handleSkunk(); the method handleSkunk is not applicable
 					wantsToRoll = false;
 					break;
 				}
@@ -95,29 +95,34 @@ public class SkunkDomain
 				wantsToRoll = 'y' == wantsToRollStr.toLowerCase().charAt(0);
 
 			}
+			
 
-			ui.println("End of turn for " + playerNames[activePlayerIndex]);
-			ui.println("Score for this turn is " + activePlayer.getTurnScore() + ", added to...");
-			ui.println("Previous round score of " + activePlayer.getRoundScore());
-			activePlayer.setRoundScore(activePlayer.getRoundScore() + activePlayer.getTurnScore());
-			ui.println("Giving new round score of " + activePlayer.getRoundScore());
-
-			ui.println("");
+//			ui.println("End of turn for " + playerNames[activePlayerIndex]);
+//			ui.println("Score for this turn is " + activePlayer.getTurnScore() + ", added to...");
+//			ui.println("Previous round score of " + activePlayer.getRoundScore());
+//			activePlayer.setRoundScore(activePlayer.getRoundScore() + activePlayer.getTurnScore());
+//			ui.println("Giving new round score of " + activePlayer.getRoundScore());
+//
+//			ui.println("");  add TurnSummary method in line 238
+			
+			TurnSummary(activePlayerIndex); 
+			
 			if (activePlayer.getRoundScore() >= 100)
 				gameNotOver = false;
 
-			ui.println("Scoreboard: ");
-			ui.println("Kitty has " + kitty);
-			ui.println("player name -- turn score -- round score -- chips");
-			ui.println("-----------------------");
-
-			for (int i = 0; i < numberOfPlayers; i++)
-			{
-				ui.println(playerNames[i] + " -- " + players.get(i).turnScore + " -- " + players.get(i).roundScore
-						+ " -- " + players.get(i).getNumberChips());
-			}
-			ui.println("-----------------------");
-
+//			ui.println("Scoreboard: ");
+//			ui.println("Kitty has " + kitty);
+//			ui.println("player name -- turn score -- round score -- chips");
+//			ui.println("-----------------------");
+//
+//			for (int i = 0; i < numberOfPlayers; i++)
+//			{
+//				ui.println(playerNames[i] + " -- " + players.get(i).turnScore + " -- " + players.get(i).roundScore
+//						+ " -- " + players.get(i).getNumberChips());
+//			}
+//			ui.println("-----------------------");
+			
+			printScoreBoard();
 			ui.println("Turn passes to right...");
 
 			activePlayerIndex = (activePlayerIndex + 1) % numberOfPlayers;
@@ -225,7 +230,7 @@ public class SkunkDomain
 		return true;
 	}
 
-	private void handleSkunk(String msg, int kittyPenalty, int newRoundScore))
+	private void handleSkunk(String msg, int kittyPenalty, int newRoundScore)// ), one more ')' at the end of line
 	{
 		ui.println(msg);
 		kitty += kittyPenalty;
@@ -233,7 +238,37 @@ public class SkunkDomain
 		activePlayer.setTurnScore(0);
 		activePlayer.setRoundScore(newRoundScore);
 	}
+	
+	public void TurnSummary(int activePlayerIndex)
+	{
+		ui.println("End of turn for " + playerNames[activePlayerIndex]);
+		ui.println("Score for this turn is " + activePlayer.getTurnScore() + ", added to...");
+		ui.println("Previous round score of " + activePlayer.getRoundScore());
+		activePlayer.setRoundScore(activePlayer.getRoundScore() + activePlayer.getTurnScore());
+		ui.println("Giving new round score of " + activePlayer.getRoundScore());
+		ui.println("");	
+	}
+    
+	public void printScoreBoard()
+	{
+		ui.println("Scoreboard: ");
+		ui.println("Kitty has " + kitty);
+		ui.println("player name -- turn score -- round score -- chips");
+		ui.println("-----------------------");
 
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			ui.println(playerNames[i] + " -- " + players.get(i).turnScore + " -- " + players.get(i).roundScore
+					+ " -- " + players.get(i).getNumberChips());
+		}
+		ui.println("-----------------------");	
+		
+		
+		
+	}
+	
+	
+	
 	public static void main(String[] args)
 	{
 		// TODO Auto-generated method stub
