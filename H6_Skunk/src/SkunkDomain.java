@@ -17,7 +17,7 @@ public class SkunkDomain
 	public boolean wantsToQuit;
 	public boolean oneMoreRoll;
 
-	public SkunkDice skunkDice;
+	public SkunkDice skunkDice; // change dice to SkunkDice
 
 	public SkunkDomain(SkunkUI ui)
 	{
